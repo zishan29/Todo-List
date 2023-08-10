@@ -5,9 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
     <script src="./main.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 </head>
 <body>
     <div id="content">
+        <div id="sidebar"></div>
+        <div id="main-container">
+            <div id="header">
+                <div id="title">Inbox</div>
+            </div>
+            <div id="task-list">
+                <div class="card">
+                    <input type="checkbox" class="checkbox"/> 
+                    <div>Gym</div>
+                    <div class="description">Gym</div>
+                    <div class="due-date">08/08/2023</div>
+                    <div class="priority">no priority</div>
+                </div>
+            </div>
+            <button id="add-task">
+                <div id="plus">+</div>
+                <div id="task">Add task</div>
+            </button>
+            <form>
+                <input type="text" placeholder="Task name" id="task-name">
+                <input type="text" placeholder="Description" id="description">
+                <div id="container1">
+                    <input type="text" id="datePicker" placeholder="due date">
+                    <select id="priority">
+                        <option value="no-priority" selected>no priority</option>
+                        <option value="priority1">priority 1</option>
+                        <option value="priority2">priority 2</option>
+                        <option value="priority3">priority 3</option>
+                        <option value="priority4">priority 4</option>
+                    </select>
+                </div>
+                <div id="container2">
+                    <button type="button" id="cancel">Cancel</button>
+                    <button type="button" id="addTaskButton">Add task</button>
+                </div>
+            </form>
+        </div>
     </div>
+    <script>
+        $(function() {
+            $("#datePicker").datepicker();
+        });
+    </script>
 </body>
 </html>
