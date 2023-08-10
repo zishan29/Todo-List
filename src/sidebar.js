@@ -3,9 +3,7 @@ import todayImage from './images/calendar-today.svg';
 import upcomingImage from './images/calendar-month.svg';
 
 export default function sidebar() {
-    const content = document.querySelector('#content');
-    const sidebar = document.createElement('div');
-    sidebar.setAttribute('id', 'sidebar');
+    const sidebar = document.querySelector('#sidebar');
     const inbox = document.createElement('div');
     inbox.setAttribute('id', 'inbox');
     const inboxImg = new Image();
@@ -42,6 +40,4 @@ export default function sidebar() {
     title.textContent = 'Projects';
     projects.appendChild(title);
     sidebar.appendChild(projects);
-
-    content.appendChild(sidebar);
 }

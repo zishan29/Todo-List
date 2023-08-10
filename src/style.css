@@ -8,16 +8,21 @@
     src: url(./Roboto/Roboto-Regular.ttf);
 }
 
+body {
+    margin: 0;
+    height: 100vh;
+}
+
 #sidebar {
     padding: 20px;
     padding-top: 80px;
     background-color: #242424;
     min-width: 265px;
-    height: 95.95vh;
+    height: 100%;
     color: white;
     display: grid;
     grid-template-rows: 25px 25px 25px;
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     align-items: center;
@@ -26,7 +31,201 @@
 
 #content {
     display: grid;
-    grid-template-columns: 265px 1fr;
+    grid-template-columns: 305px 1fr;
+    height: 100vh;
+}
+
+#main-container {
+    margin-top: 20px;
+    grid-column: 2 / -1;
+    justify-self: center;
+    width: 50%;
+    display: grid;
+    grid-template-rows: 50px;
+}
+
+#task-list {
+    grid-row: 2 / 3;
+    margin-top: 20px;
+    grid-column: 2 / -1;
+    justify-self: center;
+    width: 200%;
+    display: grid;
+    height: 75vh;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 120px;
+}
+
+#task-list > div {
+    width: 50%;
+    justify-self: center;
+}
+
+#task-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+#task-list::-webkit-scrollbar-thumb {
+    background-color: grey; /* Set the color of the thumb */
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 3px;  
+}
+
+.card {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    height: 100px;
+    border-bottom: 1px solid #555555;
+    color: white;
+    align-items: center;
+}
+
+.checkbox {
+    grid-column: 1 / 2;
+    height: 20px;
+}
+
+.card > div {
+    grid-column: 2 / -1;
+    color: #808080;
+}
+
+#add-task {
+    display: flex;
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    grid-row: 3 / 4;
+    grid-column: 1 / -1;
+    align-self: end;
+    margin-bottom: 30px;
+}
+
+form {
+    visibility: hidden;
+    border: 1px solid #555555;
+    display: grid;
+    grid-row: 3 / 4;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 25px 30px 50px;
+    padding: 8px;
+    border-radius: 8px;
+    padding-bottom: 0;
+    bottom: 40px;
+    grid-column: 1 / -1;
+    align-self: center;
+}
+
+#container1 {
+    grid-column: 1 / 3;
+    display: grid;
+    grid-template-columns: 80px 80px;
+    gap: 8px;
+}
+
+#container2 {
+    grid-column: -2 / -1;
+    display: grid;
+    grid-template-columns: 80px 80px;
+    justify-self: end;
+    gap: 5px;
+}
+
+input {
+    background-color: transparent;
+    border: none;
+}
+
+#task-name::placeholder {
+    font-weight: bold;
+    font-size: 15px;
+    color: #797979;
+}
+
+#task-name {
+    line-height: 20px;
+    color: white;
+    font-size: 15px;
+}
+
+#description {
+    color: white;
+}
+
+select {
+    background-color: transparent;
+    border: 1px solid #555555;
+    color: #979797;
+    justify-self: center;
+    grid-column: 2 / 3;
+    border-radius: 4px;
+    align-self: center;
+    justify-self: start;
+    padding: 5px 5px;
+}
+
+#datePicker {
+    border: 1px solid #555555;
+    color: #979797;
+    grid-column: 1 / 2;
+    border-radius: 4px;
+    align-self: center;
+    padding: 5px 5px;
+}
+
+#task-name, #description {
+    grid-column: 1 / 5;
+}
+
+#description {
+    grid-row: 2 / 3;
+}
+
+form > div > button {
+    background-color: #292929;
+    border: none;
+    color: white;
+    width: 95%;
+    height: 60%;
+    justify-self: end;
+    align-self: center;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+form > div > #addTaskButton {
+    background-color: #de4c4a;
+}
+
+#add-task > #plus{
+    border-radius: 50%;
+    width: 20px;
+    border: none;
+    background-color: transparent;
+    color:rgb(235, 77, 77);
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+
+#add-task > #task {
+    color: #808080;
+    font-size: 16px;
+}
+
+#header > #title {
+    color: white;
+    font-size: 20px;
+}
+
+#header {
+    margin-top: 20px;
 }
 
 #inbox, #today, #upcoming {
@@ -60,4 +259,113 @@
     background-color: #363636;
     padding: 8px;
     border-radius: 5px;
+}
+
+
+input:focus {
+    outline: none;
+}
+
+
+#ui-datepicker-div {
+	display: none;
+	background-color: #fff;
+	box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.1);
+	margin-top: 0.25rem;
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.ui-datepicker-calendar thead th {
+	padding: 0.25rem 0;
+	text-align: center;
+	font-size: 0.75rem;
+	font-weight: 400;
+	color: #78909C;
+}
+
+.ui-datepicker-calendar tbody td {
+	width: 2.5rem;
+	text-align: center;
+	padding: 0;
+}
+
+.ui-datepicker-calendar tbody td a {
+	display: block;
+	border-radius: 0.25rem;
+	line-height: 2rem;
+	transition: 0.3s all;
+	color: #546E7A;
+	font-size: 0.875rem;
+	text-decoration: none;
+}
+
+.ui-datepicker-calendar tbody td a:hover {	
+	background-color: #E0F2F1;
+}
+
+.ui-datepicker-calendar tbody td a.ui-state-active {
+	background-color: #009688;
+	color: white;
+}
+
+.ui-datepicker-header a.ui-corner-all {
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	width: 2rem;
+	height: 2rem;
+	margin: 0.5rem;
+	border-radius: 0.25rem;
+	transition: 0.3s all;
+}
+
+.ui-datepicker-header a.ui-corner-all:hover {
+	background-color: #ECEFF1;
+}
+
+.ui-datepicker-header a.ui-datepicker-prev {	
+	left: 0;	
+	background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMyIgaGVpZ2h0PSIxMyIgdmlld0JveD0iMCAwIDEzIDEzIj48cGF0aCBmaWxsPSIjNDI0NzcwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03LjI4OCA2LjI5NkwzLjIwMiAyLjIxYS43MS43MSAwIDAgMSAuMDA3LS45OTljLjI4LS4yOC43MjUtLjI4Ljk5OS0uMDA3TDguODAzIDUuOGEuNjk1LjY5NSAwIDAgMSAuMjAyLjQ5Ni42OTUuNjk1IDAgMCAxLS4yMDIuNDk3bC00LjU5NSA0LjU5NWEuNzA0LjcwNCAwIDAgMS0xLS4wMDcuNzEuNzEgMCAwIDEtLjAwNi0uOTk5bDQuMDg2LTQuMDg2eiIvPjwvc3ZnPg==");
+	background-repeat: no-repeat;
+	background-size: 0.5rem;
+	background-position: 50%;
+	transform: rotate(180deg);
+}
+
+.ui-datepicker-header a.ui-datepicker-next {
+	right: 0;
+	background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMyIgaGVpZ2h0PSIxMyIgdmlld0JveD0iMCAwIDEzIDEzIj48cGF0aCBmaWxsPSIjNDI0NzcwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03LjI4OCA2LjI5NkwzLjIwMiAyLjIxYS43MS43MSAwIDAgMSAuMDA3LS45OTljLjI4LS4yOC43MjUtLjI4Ljk5OS0uMDA3TDguODAzIDUuOGEuNjk1LjY5NSAwIDAgMSAuMjAyLjQ5Ni42OTUuNjk1IDAgMCAxLS4yMDIuNDk3bC00LjU5NSA0LjU5NWEuNzA0LjcwNCAwIDAgMS0xLS4wMDcuNzEuNzEgMCAwIDEtLjAwNi0uOTk5bDQuMDg2LTQuMDg2eiIvPjwvc3ZnPg==');
+	background-repeat: no-repeat;
+	background-size: 10px;
+	background-position: 50%;
+}
+
+.ui-datepicker-header a>span {
+	display: none;
+}
+
+.ui-datepicker-title {
+	text-align: center;
+	line-height: 2rem;
+	margin-bottom: 0.25rem;
+	font-size: 0.875rem;
+	font-weight: 500;
+	padding-bottom: 0.25rem;
+}
+
+.ui-datepicker-week-col {
+	color: #78909C;
+	font-weight: 400;
+	font-size: 0.75rem;
+}
+
+select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
 }
