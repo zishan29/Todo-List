@@ -27,6 +27,7 @@ body {
     top: 0;
     align-items: center;
     gap: 8px;
+    opacity: 1;
 }
 
 #content {
@@ -42,16 +43,16 @@ body {
     width: 50%;
     display: grid;
     grid-template-rows: 50px;
+    grid-auto-rows: max-content;
+    gap: 10px;
 }
 
 #task-list {
     grid-row: 2 / 3;
-    margin-top: 20px;
     grid-column: 2 / -1;
     justify-self: center;
     width: 200%;
     display: grid;
-    height: 75vh;
     overflow: auto;
     display: grid;
     grid-template-columns: 1fr;
@@ -68,7 +69,7 @@ body {
 }
 
 #task-list::-webkit-scrollbar-thumb {
-    background-color: grey; /* Set the color of the thumb */
+    background-color: grey;
     border-radius: 20px;
 }
 
@@ -103,21 +104,33 @@ body {
     align-items: center;
     grid-row: 3 / 4;
     grid-column: 1 / -1;
-    align-self: end;
-    margin-bottom: 30px;
+    height: 40px;
+}
+
+#add-task > #plus{
+    border-radius: 50%;
+    width: 20px;
+    border: none;
+    background-color: transparent;
+    color:rgb(235, 77, 77);
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+#add-task > #task {
+    color: #808080;
+    font-size: 16px;
 }
 
 form {
     visibility: hidden;
     border: 1px solid #555555;
     display: grid;
-    grid-row: 3 / 4;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 25px 30px 50px;
     padding: 8px;
     border-radius: 8px;
-    padding-bottom: 0;
-    bottom: 40px;
+    grid-row: 3 / 4;
     grid-column: 1 / -1;
     align-self: center;
 }
@@ -125,8 +138,9 @@ form {
 #container1 {
     grid-column: 1 / 3;
     display: grid;
-    grid-template-columns: 80px 80px;
+    grid-template-columns: 70px 70px 70px;
     gap: 8px;
+    grid-auto-flow: column;
 }
 
 #container2 {
@@ -135,6 +149,10 @@ form {
     grid-template-columns: 80px 80px;
     justify-self: end;
     gap: 5px;
+}
+
+#select-projects {
+    grid-column: 3 / 4;
 }
 
 input {
@@ -177,6 +195,7 @@ select {
     border-radius: 4px;
     align-self: center;
     padding: 5px 5px;
+    width: 85%;
 }
 
 #task-name, #description {
@@ -201,22 +220,6 @@ form > div > button {
 
 form > div > #addTaskButton {
     background-color: #de4c4a;
-}
-
-#add-task > #plus{
-    border-radius: 50%;
-    width: 20px;
-    border: none;
-    background-color: transparent;
-    color:rgb(235, 77, 77);
-    margin-right: 10px;
-    font-size: 18px;
-}
-
-
-#add-task > #task {
-    color: #808080;
-    font-size: 16px;
 }
 
 #header > #title {
@@ -253,6 +256,9 @@ form > div > #addTaskButton {
     color: #9e9e9e;
     font-weight: bold;
     letter-spacing: 0.5px;
+    grid-template-rows: 40px;
+    grid-auto-rows: 32px;
+    align-items: center;
 }
 
 #inbox:hover, #today:hover, #upcoming:hover {
@@ -366,6 +372,89 @@ table {
 }
 
 select {
-    -moz-appearance: none;
-    -webkit-appearance: none;
+    appearance: none;
+}
+
+#projects > #title {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+#plus-img {
+    height: 20px;
+    width: auto;
+    margin-left: auto;
+    padding: 5px;
+    visibility: hidden;
+}
+
+#plus-img:hover {
+    border: none;
+    border-radius: 5px;
+    background-color: #202020;
+}
+
+#project-form {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 30px 35px 30px 55px;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    width: 300px;
+    height: 140px;
+}
+
+#project-form > input {
+    border: 1px solid #333333;
+    border-radius: 4px;
+    padding-left: 5px;
+}
+
+#project-form > input, #project-form > label, #project-form > #title {
+    grid-column: 1 / -1;
+    color: white;
+}
+
+#project-form > #title {
+    font-size: 18px;    
+    font-weight: bold;
+    border-bottom: 1px solid #282828;
+}
+
+#project-form > label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+#project-form > button {
+    height: 60%;
+    align-self: center;
+    background-color: #292929;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+    width: 95%;
+    justify-self: center;
+}
+
+#project-form > button + button {
+    background-color: #de4c4a;
+}
+
+.projects {
+    color: #f4f4f4;
+    font-weight: normal;
+    padding: 8px;
+}
+
+.projects:hover {
+    background-color: #363636;
+    padding: 8px;
+    border-radius: 5px;
 }

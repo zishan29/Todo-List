@@ -1,6 +1,7 @@
 import inboxImage from './images/inbox.svg';
 import todayImage from './images/calendar-today.svg';
 import upcomingImage from './images/calendar-month.svg';
+import plus from './images/plus.svg';
 
 export default function sidebar() {
     const sidebar = document.querySelector('#sidebar');
@@ -38,6 +39,11 @@ export default function sidebar() {
     projects.setAttribute('id', 'projects')
     const title = document.createElement('div');
     title.textContent = 'Projects';
+    title.setAttribute('id', 'title');
+    const plusImg = new Image();
+    plusImg.src = plus;
+    plusImg.setAttribute('id', 'plus-img');
+    title.appendChild(plusImg);
     projects.appendChild(title);
     sidebar.appendChild(projects);
 }

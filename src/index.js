@@ -2,10 +2,20 @@ import './style.css';
 import check from './images/to-do-list.png'
 import sidebar from './sidebar';
 
-let count = 0;
 
-function task(title, description, dueDate, priority) {
-    return {title, description, dueDate, priority};
+const addTask = document.querySelector('#add-task');
+const cancel = document.querySelector('#cancel');
+const form = document.querySelector('form');
+const projectForm = document.querySelector('#project-form');
+const mainContainer = document.querySelector('#main-container');
+const projAdd = document.querySelector('#project-add');
+const addTaskButton = document. querySelector('#addTaskButton');
+
+addFavicon();
+sidebar();
+
+function task(title, description, dueDate, priority, project) {
+    return {title, description, dueDate, priority, project};
 }
 
 function addFavicon() {
@@ -19,7 +29,13 @@ function addFavicon() {
 
 function createTask(task) {
     addToStorage(task);
+    resetScreen();
     displayTask();
+}
+
+function resetScreen() {
+    const taskList = document.querySelector('#task-list');
+    taskList.textContent = '';
 }
 
 function addToStorage(task) {
@@ -27,15 +43,11 @@ function addToStorage(task) {
 }
 
 function displayTask() {
-    let arr = [];
     const keys = Object.keys(localStorage);
-    console.log(keys);
+    keys.sort();
     for (let key of keys) {
         let value = `${localStorage.getItem(key)}`;
         value = JSON.parse(value);
-        arr.push(value);
-    }
-    for(let i = 0; i < arr.length; i--) {
         const taskList = document.querySelector('#task-list');
         const card = document.createElement('div');
         card.classList.add('card');
@@ -43,33 +55,24 @@ function displayTask() {
         input.setAttribute('type', 'checkbox');
         input.classList.add('checkbox');
         const title = document.createElement('div');
-        title.textContent = `${arr[i].title}`;
+        title.textContent = `${value.title}`;
         const description = document.createElement('div');
         description.classList.add('description');
-        description.textContent = `${arr[i].description}`;
+        description.textContent = `${value.description}`;
         const dueDate = document.createElement('div');
         dueDate.classList.add('due-date');
-        dueDate.textContent = `${arr[i].dueDate}`;
+        dueDate.textContent = `${value.dueDate}`;
         const priority = document.createElement('div');
         priority.classList.add('priority')
-        priority.textContent = `${arr[i].priority}`;
+        priority.textContent = `${value.priority}`;
         card.appendChild(input);
         card.appendChild(title);
-        card.appendChild(description);    
+        card.appendChild(description);
         card.appendChild(dueDate);
         card.appendChild(priority);
         taskList.appendChild(card);
     }
-    count++;
 }
-
-localStorage.clear();
-addFavicon();
-sidebar();
-
-const addTask = document.querySelector('#add-task');
-const cancel = document.querySelector('#cancel');
-const form = document.querySelector('form');
 
 cancel.addEventListener('click', () => {
     form.style.visibility = 'hidden';
@@ -98,7 +101,6 @@ addTask.addEventListener('click', () => {
     addTask.style.visibility = 'hidden';
 });
 
-const addTaskButton = document. querySelector('#addTaskButton');
 addTaskButton.addEventListener('click', () => {
     const task1 = task(document.querySelector('#task-name').value, document.querySelector('#description').value, document.querySelector('#datePicker').value, document.querySelector('#priority').value);
     createTask(task1);
@@ -106,3 +108,40 @@ addTaskButton.addEventListener('click', () => {
     addTask.style.visibility = 'visible';
     form.reset();
 });
+
+const sideB = document.querySelector('#sidebar');
+const plusImg = document.querySelector('#plus-img');
+sideB.addEventListener('mouseover', () => {
+    plusImg.style.visibility = 'visible';
+});
+
+sideB.addEventListener('mouseout', () => {
+    plusImg.style.visibility = 'hidden';
+});
+
+plusImg.addEventListener('click', () => {
+    mainContainer.style.opacity = 0.5;
+    sideB.style.opacity = 0.5;
+    projectForm.style.visibility = 'visible';
+});
+
+const projCancel = document.querySelector('#project-cancel');
+projCancel.addEventListener('click', () => {
+    mainContainer.style.opacity = 1;
+    sideB.style.opacity = 1;
+    projectForm.style.visibility = 'hidden';
+    projectForm.reset();
+});
+
+projAdd.addEventListener('click', () => {
+    const div = document.createElement('div');
+    const projects = document.querySelector('#projects');
+    div.classList.add('projects');
+    div.textContent = document.querySelector('#project-input').value;
+    projects.appendChild(div);
+    projectForm.style.visibility = 'hidden';
+    mainContainer.style.opacity = 1;
+    sideB.style.opacity = 1;
+});
+
+localStorage.clear();

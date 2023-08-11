@@ -16,13 +16,6 @@
                 <div id="title">Inbox</div>
             </div>
             <div id="task-list">
-                <div class="card">
-                    <input type="checkbox" class="checkbox"/> 
-                    <div>Gym</div>
-                    <div class="description">Gym</div>
-                    <div class="due-date">08/08/2023</div>
-                    <div class="priority">no priority</div>
-                </div>
             </div>
             <button id="add-task">
                 <div id="plus">+</div>
@@ -40,6 +33,9 @@
                         <option value="priority3">priority 3</option>
                         <option value="priority4">priority 4</option>
                     </select>
+                    <select id="select-projects">
+                        <option value="inbox" selected>Inbox</option>
+                    </select>
                 </div>
                 <div id="container2">
                     <button type="button" id="cancel">Cancel</button>
@@ -47,6 +43,13 @@
                 </div>
             </form>
         </div>
+        <form id="project-form">
+            <div id="title">Add Project</div>
+            <label for="project-input">Name</label>
+            <input type="text" id="project-input">
+            <button type="button" id="project-cancel">cancel</button>
+            <button type="button" id="project-add">Add</button>
+        </form>
     </div>
     <script>
         $(function() {
