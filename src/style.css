@@ -56,12 +56,14 @@ body {
     overflow: auto;
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-rows: 120px;
+    grid-auto-rows: max-content;
 }
 
 #task-list > div {
     width: 50%;
     justify-self: center;
+    height: max-content;
+    margin: 10px 0;
 }
 
 #task-list::-webkit-scrollbar {
@@ -81,9 +83,20 @@ body {
 .card {
     display: grid;
     grid-template-columns: 30px 1fr;
-    height: 100px;
-    border-bottom: 1px solid #555555;
-    color: white;
+    border-bottom: 1px solid #373737;
+    align-items: center;
+    grid-auto-rows: max-content;
+    max-height: max-content;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.due-date > img {
+    height: 16px;
+}
+.due-date {
+    font-size: 12px;
+    display: flex;
     align-items: center;
 }
 
@@ -94,7 +107,24 @@ body {
 
 .card > div {
     grid-column: 2 / -1;
-    color: #808080;
+    color: #9d9d9d;
+    margin: 2px 0;
+}
+
+.description {
+    font-size: 14px;
+}
+
+.card > input + div {
+    color: #eeeeee;
+}
+
+.card > .edit {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 20px;
+    visibility: hidden;
 }
 
 #add-task {
@@ -222,14 +252,12 @@ form > div > #addTaskButton {
     background-color: #de4c4a;
 }
 
-#header > #title {
+#header{
     color: white;
     font-size: 20px;
-}
-
-#header {
     margin-top: 20px;
 }
+
 
 #inbox, #today, #upcoming {
     display: grid;
@@ -457,4 +485,39 @@ select {
     background-color: #363636;
     padding: 8px;
     border-radius: 5px;
+}
+
+input[type='checkbox'] {
+    appearance: none;
+    border: 1px solid #808080;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+input[type='checkbox']:checked {
+    width: 10px;
+    height: 20px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

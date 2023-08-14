@@ -1,7 +1,10 @@
 import './style.css';
 import check from './images/to-do-list.png'
 import sidebar from './sidebar';
-
+import { displayInbox } from './display';
+import { displayToday } from './display';
+import { displayUpcoming } from './display';
+import { displayProjects } from './display';
 
 const addTask = document.querySelector('#add-task');
 const cancel = document.querySelector('#cancel');
@@ -14,8 +17,8 @@ const addTaskButton = document. querySelector('#addTaskButton');
 addFavicon();
 sidebar();
 
-function task(title, description, dueDate, priority, project) {
-    return {title, description, dueDate, priority, project};
+function task(title, description, dueDate, priority) {
+    return {title, description, dueDate, priority};
 }
 
 function addFavicon() {
@@ -27,10 +30,14 @@ function addFavicon() {
     head.appendChild(link);
 }
 
-function createTask(task) {
-    addToStorage(task);
+function createTask(task, project) {
+    addToStorage(task, project);
     resetScreen();
-    displayTask();
+    if(project === 'Inbox') {
+        displayInbox();
+    } else {
+        displayProjects(project);
+    }
 }
 
 function resetScreen() {
@@ -38,39 +45,27 @@ function resetScreen() {
     taskList.textContent = '';
 }
 
-function addToStorage(task) {
-    localStorage.setItem(`${task.title}`, JSON.stringify(task));
+function addToStorage(task, project) {
+    let arr = [];
+    if(localStorage.getItem(project) === null) {
+        localStorage.setItem(project, JSON.stringify(task));
+        arr = arr.concat(JSON.parse(localStorage.getItem(project)));
+    } else {
+        arr = arr.concat(JSON.parse(localStorage.getItem(project)));
+        arr.push(task);
+        localStorage.setItem(project, JSON.stringify(arr));
+    }
 }
 
-function displayTask() {
-    const keys = Object.keys(localStorage);
-    keys.sort();
-    for (let key of keys) {
-        let value = `${localStorage.getItem(key)}`;
-        value = JSON.parse(value);
-        const taskList = document.querySelector('#task-list');
-        const card = document.createElement('div');
-        card.classList.add('card');
-        const input = document.createElement('input');
-        input.setAttribute('type', 'checkbox');
-        input.classList.add('checkbox');
-        const title = document.createElement('div');
-        title.textContent = `${value.title}`;
-        const description = document.createElement('div');
-        description.classList.add('description');
-        description.textContent = `${value.description}`;
-        const dueDate = document.createElement('div');
-        dueDate.classList.add('due-date');
-        dueDate.textContent = `${value.dueDate}`;
-        const priority = document.createElement('div');
-        priority.classList.add('priority')
-        priority.textContent = `${value.priority}`;
-        card.appendChild(input);
-        card.appendChild(title);
-        card.appendChild(description);
-        card.appendChild(dueDate);
-        card.appendChild(priority);
-        taskList.appendChild(card);
+function addProject(title) {
+    let arr = [];
+    if(localStorage.getItem('Projects') === null) {
+        localStorage.setItem('Projects', JSON.stringify(title));
+        arr = arr.concat(JSON.parse(localStorage.getItem('Projects')));
+    } else {
+        arr = arr.concat(JSON.parse(localStorage.getItem('Projects')));
+        arr.push(title);
+        localStorage.setItem('Projects', JSON.stringify(arr));
     }
 }
 
@@ -103,7 +98,8 @@ addTask.addEventListener('click', () => {
 
 addTaskButton.addEventListener('click', () => {
     const task1 = task(document.querySelector('#task-name').value, document.querySelector('#description').value, document.querySelector('#datePicker').value, document.querySelector('#priority').value);
-    createTask(task1);
+    const header = document.querySelector('#header').textContent;
+    createTask(task1, header);
     form.style.visibility = 'hidden';
     addTask.style.visibility = 'visible';
     form.reset();
@@ -139,9 +135,65 @@ projAdd.addEventListener('click', () => {
     div.classList.add('projects');
     div.textContent = document.querySelector('#project-input').value;
     projects.appendChild(div);
+    const projInput = document.querySelector('#project-input');
+    addProject(`${projInput.value}`);
     projectForm.style.visibility = 'hidden';
     mainContainer.style.opacity = 1;
     sideB.style.opacity = 1;
+    projectForm.reset();
 });
 
-localStorage.clear();
+const projects = document.querySelector('#projects');
+projects.addEventListener('mouseover', () => {
+    const $projects = document.querySelectorAll('.projects');
+    $projects.forEach(project => {
+        project.addEventListener('click', (e) => {
+            const header = document.querySelector('#header');
+            header.textContent = e.target.textContent;
+            resetScreen();
+            displayProjects(e.target.textContent);
+        });
+    });
+});
+
+const inbox = document.querySelector('#inbox');
+inbox.addEventListener('click', (e) => {
+    const header = document.querySelector('#header');
+    header.textContent = e.target.textContent;
+    resetScreen();
+    displayInbox();
+});
+
+const today = document.querySelector('#today');
+today.addEventListener('click', (e) => {
+    const header = document.querySelector('#header');
+    header.textContent = e.target.textContent;
+    resetScreen();
+    displayToday();
+});
+
+const upcoming = document.querySelector('#upcoming');
+upcoming.addEventListener('click', (e) => {
+    const header = document.querySelector('#header');
+    header.textContent = e.target.textContent;
+    resetScreen();
+    displayUpcoming();
+})
+
+document.addEventListener('mouseover', () => {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.addEventListener('mouseover', (e) => {
+            const edit = card.firstChild;
+            edit.style.visibility = 'visible';
+            
+        });
+        card.addEventListener('mouseout', () => {
+            const edit = card.firstChild;
+            edit.style.visibility = 'hidden';
+        });
+    });
+});
+
+// localStorage.clear();
+
