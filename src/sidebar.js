@@ -43,7 +43,30 @@ export default function sidebar() {
     const plusImg = new Image();
     plusImg.src = plus;
     plusImg.setAttribute('id', 'plus-img');
+    const container = document.createElement('div');
+    container.setAttribute('id', 'project-container');
     title.appendChild(plusImg);
     projects.appendChild(title);
+    projects.appendChild(container);
     sidebar.appendChild(projects);
+}
+
+export function addProjectsToSidebar() {
+    let get = JSON.parse(localStorage.getItem('Projects'));
+    if(get === null) return;
+    const container = document.querySelector('#project-container');
+    container.textContent = "";
+    if(!(get instanceof Object)) {
+        const div = document.createElement('div');
+        div.classList.add('projects');
+        div.textContent = get;
+        container.appendChild(div);
+    } else {
+        for(let i = 0; i < get.length; i++) {
+            const div = document.createElement('div');
+            div.classList.add('projects');
+            div.textContent = get[i];
+            container.appendChild(div);
+        }
+    }
 }

@@ -3,6 +3,7 @@ import calendar from './images/calendar-blank-outline.svg';
 import edit from './images/pencil-outline.svg';
 
 export function displayInbox() {
+    let count = 1;
     const keys = Object.keys(localStorage);
     for(let i = 0; i < keys.length; i++) {
         if(keys[i] === 'Projects') {
@@ -14,6 +15,8 @@ export function displayInbox() {
             const taskList = document.querySelector('#task-list');
             const card = document.createElement('div');
             card.classList.add('card');
+            card.setAttribute('id', `${count}`);
+            count++;
             const editImg = new Image();
             editImg.src = edit;
             editImg.setAttribute('class', 'edit');
@@ -21,11 +24,18 @@ export function displayInbox() {
             const input = document.createElement('input');
             input.setAttribute('type', 'checkbox');
             input.classList.add('checkbox');
+            if(get.priority === 'priority1') {
+                input.classList.add('priority1');
+            } else if(get.priority === 'priority2') {
+                input.classList.add('priority2')
+            } else if(get.priority === 'priority3') {
+                input.classList.add('priority3');
+            } else {
+                input.classList.add('priority4');
+            }
             const title = document.createElement('div');
             title.textContent = `${get.title}`;
-            const priority = document.createElement('div');
-            priority.classList.add('priority')
-            priority.textContent = `${get.priority}`;
+            title.setAttribute('id', 'title');
             card.appendChild(input);
             card.appendChild(title);
             if(get.description.length > 0) {
@@ -51,6 +61,8 @@ export function displayInbox() {
                 const taskList = document.querySelector('#task-list');
                 const card = document.createElement('div');
                 card.classList.add('card');
+                card.setAttribute('id', `${count}`);
+                count++;
                 const editImg = new Image();
                 editImg.src = edit;
                 editImg.setAttribute('class', 'edit');
@@ -58,11 +70,18 @@ export function displayInbox() {
                 const input = document.createElement('input');
                 input.setAttribute('type', 'checkbox');
                 input.classList.add('checkbox');
+                if(get[i].priority === 'priority1') {
+                    input.classList.add('priority1');
+                } else if(get[i].priority === 'priority2') {
+                    input.classList.add('priority2')
+                } else if(get[i].priority === 'priority3') {
+                    input.classList.add('priority3');
+                } else {
+                    input.classList.add('priority4');
+                }
                 const title = document.createElement('div');
                 title.textContent = `${get[i].title}`;
-                const priority = document.createElement('div');
-                priority.classList.add('priority')
-                priority.textContent = `${get[i].priority}`;
+                title.setAttribute('id', 'title');
                 card.appendChild(input);
                 card.appendChild(title);
                 if(get[i].description.length > 0) {
@@ -89,6 +108,7 @@ export function displayInbox() {
 }
 
 export function displayToday() {
+    let count = 1;
     const date = format(new Date(), 'MM/dd/yyyy');
     const keys = Object.keys(localStorage);
     for(let i = 0; i < keys.length; i++) {
@@ -102,6 +122,8 @@ export function displayToday() {
                 const taskList = document.querySelector('#task-list');
                 const card = document.createElement('div');
                 card.classList.add('card');
+                card.setAttribute('id', `${count}`);
+                count++;
                 const editImg = new Image();
                 editImg.src = edit;
                 editImg.setAttribute('class', 'edit');
@@ -109,11 +131,18 @@ export function displayToday() {
                 const input = document.createElement('input');
                 input.setAttribute('type', 'checkbox');
                 input.classList.add('checkbox');
+                if(get.priority === 'priority1') {
+                    input.classList.add('priority1');
+                } else if(get.priority === 'priority2') {
+                    input.classList.add('priority2')
+                } else if(get.priority === 'priority3') {
+                    input.classList.add('priority3');
+                } else {
+                    input.classList.add('priority4');
+                }
                 const title = document.createElement('div');
                 title.textContent = `${get.title}`;
-                const priority = document.createElement('div');
-                priority.classList.add('priority')
-                priority.textContent = `${get.priority}`;
+                title.setAttribute('id', 'title');
                 card.appendChild(input);
                 card.appendChild(title);
                 if(get.description.length > 0) {
@@ -141,6 +170,8 @@ export function displayToday() {
                     const taskList = document.querySelector('#task-list');
                     const card = document.createElement('div');
                     card.classList.add('card');
+                    card.setAttribute('id', `${count}`);
+                    count++;
                     const editImg = new Image();
                     editImg.src = edit;
                     editImg.setAttribute('class', 'edit');
@@ -148,11 +179,18 @@ export function displayToday() {
                     const input = document.createElement('input');
                     input.setAttribute('type', 'checkbox');
                     input.classList.add('checkbox');
+                    if(get[i].priority === 'priority1') {
+                        input.classList.add('priority1');
+                    } else if(get[i].priority === 'priority2') {
+                        input.classList.add('priority2')
+                    } else if(get[i].priority === 'priority3') {
+                        input.classList.add('priority3');
+                    } else {
+                        input.classList.add('priority4');
+                    }
                     const title = document.createElement('div');
                     title.textContent = `${get[i].title}`;
-                    const priority = document.createElement('div');
-                    priority.classList.add('priority')
-                    priority.textContent = `${get[i].priority}`;
+                    title.setAttribute('id', 'title');
                     card.appendChild(input);
                     card.appendChild(title);
                     if(get[i].description.length > 0) {
@@ -180,6 +218,7 @@ export function displayToday() {
 }
 
 export function displayUpcoming() {
+    let count = 1;
     const date = format(new Date(), 'MM/dd/yyyy');
     const d1 = Date.parse(date);
     const keys = Object.keys(localStorage);
@@ -195,6 +234,8 @@ export function displayUpcoming() {
                 const taskList = document.querySelector('#task-list');
                 const card = document.createElement('div');
                 card.classList.add('card');
+                card.setAttribute('id', `${count}`);
+                count++;
                 const editImg = new Image();
                 editImg.src = edit;
                 editImg.setAttribute('class', 'edit');
@@ -202,11 +243,18 @@ export function displayUpcoming() {
                 const input = document.createElement('input');
                 input.setAttribute('type', 'checkbox');
                 input.classList.add('checkbox');
+                if(get.priority === 'priority1') {
+                    input.classList.add('priority1');
+                } else if(get.priority === 'priority2') {
+                    input.classList.add('priority2')
+                } else if(get.priority === 'priority3') {
+                    input.classList.add('priority3');
+                } else {
+                    input.classList.add('priority4');
+                }
                 const title = document.createElement('div');
                 title.textContent = `${get.title}`;
-                const priority = document.createElement('div');
-                priority.classList.add('priority')
-                priority.textContent = `${get.priority}`;
+                title.setAttribute('id', 'title');
                 card.appendChild(input);
                 card.appendChild(title);
                 if(get.description.length > 0) {
@@ -235,6 +283,8 @@ export function displayUpcoming() {
                     const taskList = document.querySelector('#task-list');
                     const card = document.createElement('div');
                     card.classList.add('card');
+                    card.setAttribute('id', `${count}`);
+                    count++;
                     const editImg = new Image();
                     editImg.src = edit;
                     editImg.setAttribute('class', 'edit');
@@ -242,11 +292,18 @@ export function displayUpcoming() {
                     const input = document.createElement('input');
                     input.setAttribute('type', 'checkbox');
                     input.classList.add('checkbox');
+                    if(get[i].priority === 'priority1') {
+                        input.classList.add('priority1');
+                    } else if(get[i].priority === 'priority2') {
+                        input.classList.add('priority2')
+                    } else if(get[i].priority === 'priority3') {
+                        input.classList.add('priority3');
+                    } else {
+                        input.classList.add('priority4');
+                    }
                     const title = document.createElement('div');
                     title.textContent = `${get[i].title}`;
-                    const priority = document.createElement('div');
-                    priority.classList.add('priority')
-                    priority.textContent = `${get[i].priority}`;
+                    title.setAttribute('id', 'title');
                     card.appendChild(input);
                     card.appendChild(title);
                     if(get[i].description.length > 0) {
@@ -274,6 +331,9 @@ export function displayUpcoming() {
 }
 
 export function displayProjects(project) {
+    const header = document.querySelector('#header');
+    header.textContent = `${project}`;
+    let count = 1;
     const get = JSON.parse(localStorage.getItem(project));
     if(get === null) {
         return;
@@ -282,6 +342,8 @@ export function displayProjects(project) {
         const taskList = document.querySelector('#task-list');
         const card = document.createElement('div');
         card.classList.add('card');
+        card.setAttribute('id', `${count}`);
+        count++;
         const editImg = new Image();
         editImg.src = edit;
         editImg.setAttribute('class', 'edit');
@@ -289,11 +351,18 @@ export function displayProjects(project) {
         const input = document.createElement('input');
         input.setAttribute('type', 'checkbox');
         input.classList.add('checkbox');
+        if(get.priority === 'priority1') {
+            input.classList.add('priority1');
+        } else if(get.priority === 'priority2') {
+            input.classList.add('priority2')
+        } else if(get.priority === 'priority3') {
+            input.classList.add('priority3');
+        } else {
+            input.classList.add('priority4');
+        }
         const title = document.createElement('div');
         title.textContent = `${get.title}`;
-        const priority = document.createElement('div');
-        priority.classList.add('priority')
-        priority.textContent = `${get.priority}`;
+        title.setAttribute('id', 'title');
         card.appendChild(input);
         card.appendChild(title);
         if(get.description.length > 0) {
@@ -320,6 +389,8 @@ export function displayProjects(project) {
              const taskList = document.querySelector('#task-list');
                     const card = document.createElement('div');
                     card.classList.add('card');
+                    card.setAttribute('id', `${count}`);
+                    count++;
                     const editImg = new Image();
                     editImg.src = edit;
                     editImg.setAttribute('class', 'edit');
@@ -327,11 +398,18 @@ export function displayProjects(project) {
                     const input = document.createElement('input');
                     input.setAttribute('type', 'checkbox');
                     input.classList.add('checkbox');
+                    if(get[i].priority === 'priority1') {
+                        input.classList.add('priority1');
+                    } else if(get[i].priority === 'priority2') {
+                        input.classList.add('priority2')
+                    } else if(get[i].priority === 'priority3') {
+                        input.classList.add('priority3');
+                    } else {
+                        input.classList.add('priority4');
+                    }
                     const title = document.createElement('div');
                     title.textContent = `${get[i].title}`;
-                    const priority = document.createElement('div');
-                    priority.classList.add('priority')
-                    priority.textContent = `${get[i].priority}`;
+                    title.setAttribute('id', 'title');
                     card.appendChild(input);
                     card.appendChild(title);
                     if(get[i].description.length > 0) {

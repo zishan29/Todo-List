@@ -25,13 +25,12 @@
                 <div id="container1">
                     <input type="text" id="datePicker" placeholder="due date">
                     <select id="priority">
-                        <option value="priority1">priority 1</option>
-                        <option value="priority2">priority 2</option>
-                        <option value="priority3">priority 3</option>
-                        <option value="priority4" selected>priority 4</option>
+                        <option value="priority1">🔴 priority 1</option>
+                        <option value="priority2">🟡 priority 2</option>
+                        <option value="priority3">🔵 priority 3</option>
+                        <option value="priority4" selected>⚪ priority 4</option>
                     </select>
                     <select id="select-projects">
-                        <option value="inbox" selected>Inbox</option>
                     </select>
                 </div>
                 <div id="container2">
@@ -47,10 +46,31 @@
             <button type="button" id="project-cancel">cancel</button>
             <button type="button" id="project-add">Add</button>
         </form>
+        <form id="edit-form">
+            <input type="text" placeholder="Task name" id="edit-task-name">
+            <input type="text" placeholder="Description" id="edit-description">
+            <div id="container1">
+                <input type="text" id="edit-datePicker" placeholder="due date">
+                <select id="edit-priority">
+                    <option value="priority1">🔴 priority 1</option>
+                    <option value="priority2">🟡 priority 2</option>
+                    <option value="priority3">🔵 priority 3</option>
+                    <option value="priority4" selected>⚪ priority 4</option>
+                </select>
+                <select id="edit-select-projects">
+                    <option value="inbox" selected>Inbox</option>
+                </select>
+            </div>
+            <div id="container2">
+                <button type="button" id="edit-cancel">Cancel</button>
+                <button type="button" id="edit-add">Add task</button>
+            </div>
+        </form>
     </div>
     <script>
         $(function() {
             $("#datePicker").datepicker();
+            $("#edit-datePicker").datepicker();
         });
     </script>
 </body>

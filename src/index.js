@@ -5,6 +5,9 @@ import { displayInbox } from './display';
 import { displayToday } from './display';
 import { displayUpcoming } from './display';
 import { displayProjects } from './display';
+import { addTaskToStorage, addProjectToStorage, editStorage, getProjectName, checkDuplicate } from './storage';
+import { addProjectsToSidebar } from './sidebar';
+import { format } from 'date-fns';
 
 const addTask = document.querySelector('#add-task');
 const cancel = document.querySelector('#cancel');
@@ -13,12 +16,17 @@ const projectForm = document.querySelector('#project-form');
 const mainContainer = document.querySelector('#main-container');
 const projAdd = document.querySelector('#project-add');
 const addTaskButton = document. querySelector('#addTaskButton');
+let $taskName = '';
+let $project = '';
 
 addFavicon();
 sidebar();
+addProjectsToSidebar();
+displayInbox();
+addToOptions();
 
-function task(title, description, dueDate, priority) {
-    return {title, description, dueDate, priority};
+function task(title, description, dueDate, priority, project) {
+    return {title, description, dueDate, priority, project};
 }
 
 function addFavicon() {
@@ -31,7 +39,7 @@ function addFavicon() {
 }
 
 function createTask(task, project) {
-    addToStorage(task, project);
+    addTaskToStorage(task, project);
     resetScreen();
     if(project === 'Inbox') {
         displayInbox();
@@ -40,32 +48,56 @@ function createTask(task, project) {
     }
 }
 
-function resetScreen() {
+export function resetScreen() {
     const taskList = document.querySelector('#task-list');
     taskList.textContent = '';
 }
 
-function addToStorage(task, project) {
-    let arr = [];
-    if(localStorage.getItem(project) === null) {
-        localStorage.setItem(project, JSON.stringify(task));
-        arr = arr.concat(JSON.parse(localStorage.getItem(project)));
+function addToOptions() {
+    let get = JSON.parse(localStorage.getItem('Projects'));
+    const selectProjects = document.querySelector('#select-projects');
+    selectProjects.textContent = '';
+    const option = document.createElement('option');
+    option.setAttribute('value', 'Inbox');
+    option.textContent = 'Inbox';
+    selectProjects.appendChild(option);
+    if(get === null) return;
+    if(!(get instanceof Object)) {
+        const option = document.createElement('option');
+        option.setAttribute('value', `${get}`);
+        option.textContent = get;
+        selectProjects.appendChild(option);
     } else {
-        arr = arr.concat(JSON.parse(localStorage.getItem(project)));
-        arr.push(task);
-        localStorage.setItem(project, JSON.stringify(arr));
+        for(let i = 0; i < get.length; i++) {
+            const option = document.createElement('option');
+            option.setAttribute('value', `${get[i]}`);
+            option.textContent = get[i];
+            selectProjects.appendChild(option);
+        }
     }
 }
 
-function addProject(title) {
-    let arr = [];
-    if(localStorage.getItem('Projects') === null) {
-        localStorage.setItem('Projects', JSON.stringify(title));
-        arr = arr.concat(JSON.parse(localStorage.getItem('Projects')));
+function addToEditOptions() {
+    let get = JSON.parse(localStorage.getItem('Projects'));
+    const selectProjects = document.querySelector('#edit-select-projects');
+    selectProjects.textContent = '';
+    const option = document.createElement('option');
+    option.setAttribute('value', 'Inbox');
+    option.textContent = 'Inbox';
+    selectProjects.appendChild(option);
+    if(get === null) return;
+    if(!(get instanceof Object)) {
+        const option = document.createElement('option');
+        option.setAttribute('value', `${get}`);
+        option.textContent = get;
+        selectProjects.appendChild(option);
     } else {
-        arr = arr.concat(JSON.parse(localStorage.getItem('Projects')));
-        arr.push(title);
-        localStorage.setItem('Projects', JSON.stringify(arr));
+        for(let i = 0; i < get.length; i++) {
+            const option = document.createElement('option');
+            option.setAttribute('value', `${get[i]}`);
+            option.textContent = get[i];
+            selectProjects.appendChild(option);
+        }
     }
 }
 
@@ -94,12 +126,19 @@ addTask.addEventListener('mouseout', () => {
 addTask.addEventListener('click', () => {
     form.style.visibility = 'visible';
     addTask.style.visibility = 'hidden';
+    const selectProjects = document.querySelector('#select-projects');
+    selectProjects.value = document.querySelector('#header').textContent;
 });
 
 addTaskButton.addEventListener('click', () => {
-    const task1 = task(document.querySelector('#task-name').value, document.querySelector('#description').value, document.querySelector('#datePicker').value, document.querySelector('#priority').value);
-    const header = document.querySelector('#header').textContent;
-    createTask(task1, header);
+    const task1 = task(document.querySelector('#task-name').value, document.querySelector('#description').value, 
+                       document.querySelector('#datePicker').value, document.querySelector('#priority').value,
+                       document.querySelector('#select-projects').value);
+    if(checkDuplicate(document.querySelector('#task-name').value, document.querySelector('#select-projects').value)) {
+        alert('Task already exists');
+        return;
+    }
+    createTask(task1, document.querySelector('#select-projects').value);
     form.style.visibility = 'hidden';
     addTask.style.visibility = 'visible';
     form.reset();
@@ -116,8 +155,8 @@ sideB.addEventListener('mouseout', () => {
 });
 
 plusImg.addEventListener('click', () => {
-    mainContainer.style.opacity = 0.5;
-    sideB.style.opacity = 0.5;
+    mainContainer.style.opacity = 0.3;
+    sideB.style.opacity = 0.3;
     projectForm.style.visibility = 'visible';
 });
 
@@ -130,13 +169,10 @@ projCancel.addEventListener('click', () => {
 });
 
 projAdd.addEventListener('click', () => {
-    const div = document.createElement('div');
-    const projects = document.querySelector('#projects');
-    div.classList.add('projects');
-    div.textContent = document.querySelector('#project-input').value;
-    projects.appendChild(div);
     const projInput = document.querySelector('#project-input');
-    addProject(`${projInput.value}`);
+    addProjectToStorage(`${projInput.value}`);
+    addProjectsToSidebar();
+    addToOptions();
     projectForm.style.visibility = 'hidden';
     mainContainer.style.opacity = 1;
     sideB.style.opacity = 1;
@@ -148,8 +184,6 @@ projects.addEventListener('mouseover', () => {
     const $projects = document.querySelectorAll('.projects');
     $projects.forEach(project => {
         project.addEventListener('click', (e) => {
-            const header = document.querySelector('#header');
-            header.textContent = e.target.textContent;
             resetScreen();
             displayProjects(e.target.textContent);
         });
@@ -178,22 +212,80 @@ upcoming.addEventListener('click', (e) => {
     header.textContent = e.target.textContent;
     resetScreen();
     displayUpcoming();
-})
+});
 
 document.addEventListener('mouseover', () => {
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
-        card.addEventListener('mouseover', (e) => {
+        card.addEventListener('mouseover', () => {
             const edit = card.firstChild;
             edit.style.visibility = 'visible';
-            
         });
         card.addEventListener('mouseout', () => {
             const edit = card.firstChild;
             edit.style.visibility = 'hidden';
         });
     });
+    const edits = document.querySelectorAll('.edit');
+    edits.forEach(edit => {
+        edit.addEventListener('click', (e) => {
+            addToEditOptions();
+            const card = e.target.parentElement.childNodes;
+            const form = document.querySelector('#edit-form');
+            const name = document.querySelector('#edit-task-name');
+            const description  = document.querySelector('#edit-description');
+            const date = document.querySelector('#edit-datePicker');
+            const priority = document.querySelector('#edit-priority');
+            const projects = document.querySelector('#edit-select-projects');
+            name.value = card[2].textContent;
+            $taskName = card[2].textContent;
+            description.value = card[3].textContent;
+            date.value = format(Date.parse(card[4].textContent), 'MM/dd/yyyy');
+            if(card[1].classList.contains('priority1')) {
+                priority.value = 'priority1';
+            } else if(card[1].classList.contains('priority2')) {
+                priority.value = 'priority2';
+            } else if(card[1].classList.contains('priority3')) {
+                priority.value = 'priority3';
+            } else {
+                priority.value = 'priority4';
+            }
+            projects.value = getProjectName(name.value);
+            $project = projects.value;
+            form.style.visibility = 'visible';
+            mainContainer.style.opacity = 0.3;
+            sideB.style.opacity = 0.3;
+        });
+    })
 });
 
-// localStorage.clear();
+const editCancel = document.querySelector('#edit-cancel');
+editCancel.addEventListener('click', () => {
+    const form = document.querySelector('#edit-form');
+    form.style.visibility = 'hidden';
+    mainContainer.style.opacity = 1;
+    sideB.style.opacity = 1;
+});
 
+const editAdd = document.querySelector('#edit-add');
+editAdd.addEventListener('click', () => {
+    const form = document.querySelector('#edit-form');
+    const name = document.querySelector('#edit-task-name');
+    const description  = document.querySelector('#edit-description');
+    const date = document.querySelector('#edit-datePicker');
+    const priority = document.querySelector('#edit-priority');
+    const projects = document.querySelector('#edit-select-projects');
+    if(checkDuplicate(name.value, projects.value)) {
+        alert('Task already exists');
+        return;
+    }
+    editStorage($taskName, $project, name.value, description.value, date.value, priority.value, projects.value);
+    form.reset();
+    form.style.visibility = 'hidden';
+    mainContainer.style.opacity = 1;
+    sideB.style.opacity = 1;
+
+})
+
+// localStorage.clear();
+// localStorage.setItem(JSON.stringify('project2'), JSON.stringify(''));

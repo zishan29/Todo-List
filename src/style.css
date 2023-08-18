@@ -168,7 +168,7 @@ form {
 #container1 {
     grid-column: 1 / 3;
     display: grid;
-    grid-template-columns: 70px 70px 70px;
+    grid-template-columns: 70px 82px 70px;
     gap: 8px;
     grid-auto-flow: column;
 }
@@ -181,7 +181,7 @@ form {
     gap: 5px;
 }
 
-#select-projects {
+#select-projects, #edit-select-projects {
     grid-column: 3 / 4;
 }
 
@@ -190,19 +190,19 @@ input {
     border: none;
 }
 
-#task-name::placeholder {
+#task-name::placeholder, #edit-task-name::placeholder {
     font-weight: bold;
     font-size: 15px;
     color: #797979;
 }
 
-#task-name {
+#task-name, #edit-task-name {
     line-height: 20px;
     color: white;
     font-size: 15px;
 }
 
-#description {
+#description, #edit-description {
     color: white;
 }
 
@@ -218,7 +218,7 @@ select {
     padding: 5px 5px;
 }
 
-#datePicker {
+#datePicker, #edit-datePicker {
     border: 1px solid #555555;
     color: #979797;
     grid-column: 1 / 2;
@@ -228,11 +228,11 @@ select {
     width: 85%;
 }
 
-#task-name, #description {
+#task-name, #description, #edit-task-name, #edit-description {
     grid-column: 1 / 5;
 }
 
-#description {
+#description, #edit-description {
     grid-row: 2 / 3;
 }
 
@@ -248,7 +248,7 @@ form > div > button {
     font-weight: bold;
 }
 
-form > div > #addTaskButton {
+form > div > #addTaskButton, #edit-add {
     background-color: #de4c4a;
 }
 
@@ -285,8 +285,12 @@ form > div > #addTaskButton {
     font-weight: bold;
     letter-spacing: 0.5px;
     grid-template-rows: 40px;
-    grid-auto-rows: 32px;
     align-items: center;
+}
+
+#project-container {
+    display: grid;
+    grid-auto-rows: max-content;
 }
 
 #inbox:hover, #today:hover, #upcoming:hover {
@@ -424,7 +428,7 @@ select {
 }
 
 #project-form {
-    position: absolute;
+    position: fixed;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 30px 35px 30px 55px;
@@ -434,6 +438,7 @@ select {
     padding: 10px;
     width: 300px;
     height: 140px;
+    background-color: #202020;
 }
 
 #project-form > input {
@@ -487,22 +492,78 @@ select {
     border-radius: 5px;
 }
 
-input[type='checkbox'] {
+input[type=checkbox] {
+    position: relative;
+    cursor: pointer;
     appearance: none;
-    border: 1px solid #808080;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
 }
-
-input[type='checkbox']:checked {
-    width: 10px;
-    height: 20px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
+  
+input[type=checkbox]:before {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    padding: 1px;
+    background-color: #202020;
+}
+  
+input[type=checkbox]:checked:before {
+    background-color: #202020;
+}
+  
+input[type=checkbox]:checked:after {
+    content: "";
+    display: block;
+    width: 3px;
+    height: 6px;
+    border-width: 0 2px 2px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+    position: absolute;
+    top: 4px;
+    left: 6px;
+}
+
+.priority1:before {
+    border: 1px solid #ff7066;
+}
+
+.priority1:checked:after {
+    border: solid #ff7066;
+}
+
+.priority2:before {
+    border: 1px solid #ff9a14;
+}
+
+.priority2:checked:after {
+    border: solid #ff9a14;
+}
+
+.priority3:before {
+    border: 1px solid #5297ff;
+}
+
+.priority3:checked:after {
+    border: solid #5297ff;
+}
+
+.priority4:before {
+    border: 1px solid #808080
+}
+
+.priority4:checked:after {
+    border: solid #808080;
+}
+
+option {
+    /* appearance: none; */
+    background-color: #202020;
+    border: none;
 }
 
 ::-webkit-scrollbar {
@@ -520,4 +581,16 @@ input[type='checkbox']:checked {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+#edit-form {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #202020;
+}
+
+select {
+    outline: none;
 }
