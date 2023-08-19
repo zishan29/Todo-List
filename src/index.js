@@ -252,19 +252,17 @@ document.addEventListener('mouseover', () => {
             $taskName = card[3].textContent;
 
             if(e.target.parentElement.querySelector('.description') !== null) {
-                    description.value = card[4].textContent;
+                description.value = card[4].textContent;
             } else {
                 description.value = '';
             }
             if(e.target.parentElement.querySelector('.due-date') !== null) {
                 if(e.target.parentElement.querySelector('.description') !== null) {
                     date.value = format(Date.parse(card[5].textContent), 'MM/dd/yyyy');
-                    console.log(card[5].textContent)
                 }
                 else {
                     date.value = format(Date.parse(card[4].textContent), 'MM/dd/yyyy');
                 }
-                console.log(date.value);
             } else {
                 date.value = '';
             }
@@ -327,5 +325,4 @@ editAdd.addEventListener('click', () => {
     form.style.visibility = 'hidden';
     mainContainer.style.opacity = 1;
     sideB.style.opacity = 1;
-
 });
