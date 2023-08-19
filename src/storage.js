@@ -30,9 +30,7 @@ export function editStorage($title, $project, title, description, dueDate, prior
     let get = localStorage.getItem($project);
     let get2 = localStorage.getItem(project);
     get = JSON.parse(get);
-    console.log(get);
     get2 = JSON.parse(get2);
-    console.log(get2);
     if(get.length === undefined) {
         if($project !== project) {
             if(get2 === null) {
