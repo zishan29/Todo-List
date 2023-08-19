@@ -30,19 +30,23 @@ export function editStorage($title, $project, title, description, dueDate, prior
     let get = localStorage.getItem($project);
     let get2 = localStorage.getItem(project);
     get = JSON.parse(get);
+    console.log(get);
     get2 = JSON.parse(get2);
+    console.log(get2);
     if(get.length === undefined) {
         if($project !== project) {
             if(get2 === null) {
                 const updatedObj = {...get, title: `${title}`, description: `${description}`,
                                 dueDate: `${dueDate}`, priority: `${priority}`, project: `${project}`};
-                const updatedGet2 = [updatedObj];
                 localStorage.removeItem($project);
-                localStorage.setItem(project, JSON.stringify(updatedGet2));
+                localStorage.setItem(project, JSON.stringify(updatedObj));
             } else {
                 const updatedObj = { ...get, title: `${title}`, description: `${description}`,
                                     dueDate: `${dueDate}`, priority: `${priority}`, project: `${project}`};
-                get2 = [get2];
+                console.log('if if else');
+                if(get2.length === undefined) {
+                    get2 = [get2];
+                }
                 const updatedGet2 = [...get2.slice(0), updatedObj];
                 localStorage.removeItem($project);
                 localStorage.setItem(project, JSON.stringify(updatedGet2));
@@ -62,14 +66,18 @@ export function editStorage($title, $project, title, description, dueDate, prior
                 const updatedObj = {...get[index], title: `${title}`, description: `${description}`,
                                 dueDate: `${dueDate}`, priority: `${priority}`, project: `${project}`};
                 const updatedGet2 = [updatedObj];
+                console.log('else if null');
                 const updatedGet = [...get.slice(0, index), ...get.slice(index + 1)];
                 localStorage.setItem(project, JSON.stringify(updatedGet2));
                 localStorage.setItem($project, JSON.stringify(updatedGet));
             } else {
                 const updatedObj = { ...get[index], title: `${title}`, description: `${description}`,
                                     dueDate: `${dueDate}`, priority: `${priority}`, project: `${project}`};
-                get2 = [get2];
+                if(get2.length === undefined) {
+                    get2 = [get2];
+                }
                 const updatedGet2 = [...get2.slice(0), updatedObj];
+                console.log('else if else !null')
                 const updatedGet = [...get.slice(0, index), ...get.slice(index + 1)];
                 localStorage.setItem(project, JSON.stringify(updatedGet2));
                 localStorage.setItem($project, JSON.stringify(updatedGet));
