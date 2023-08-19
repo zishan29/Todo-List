@@ -2,6 +2,7 @@ import inboxImage from './images/inbox.svg';
 import todayImage from './images/calendar-today.svg';
 import upcomingImage from './images/calendar-month.svg';
 import plus from './images/plus.svg';
+import delImg from './images/delete-outline.svg';
 
 export default function sidebar() {
     const sidebar = document.querySelector('#sidebar');
@@ -60,12 +61,20 @@ export function addProjectsToSidebar() {
         const div = document.createElement('div');
         div.classList.add('projects');
         div.textContent = get;
+        const deleteImg = new Image();
+        deleteImg.src = delImg;
+        deleteImg.setAttribute('class', 'delete-project');
+        div.appendChild(deleteImg);
         container.appendChild(div);
     } else {
         for(let i = 0; i < get.length; i++) {
             const div = document.createElement('div');
             div.classList.add('projects');
             div.textContent = get[i];
+            const deleteImg = new Image();
+            deleteImg.src = delImg;
+            deleteImg.setAttribute('class', 'delete-project');
+            div.appendChild(deleteImg);
             container.appendChild(div);
         }
     }

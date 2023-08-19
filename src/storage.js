@@ -68,6 +68,7 @@ export function editStorage($title, $project, title, description, dueDate, prior
             } else {
                 const updatedObj = { ...get[index], title: `${title}`, description: `${description}`,
                                     dueDate: `${dueDate}`, priority: `${priority}`, project: `${project}`};
+                get2 = [get2];
                 const updatedGet2 = [...get2.slice(0), updatedObj];
                 const updatedGet = [...get.slice(0, index), ...get.slice(index + 1)];
                 localStorage.setItem(project, JSON.stringify(updatedGet2));
@@ -115,20 +116,70 @@ export function getProjectName(title) {
     }
 }
 
-export function checkDuplicate(title, project) {
+export function checkDuplicate(title) {
+    const keys = Object.keys(localStorage);
+    for(let i = 0; i < keys.length; i++) {
+        if(keys[i] === 'Projects') {
+            continue;
+        }
+        let get = `${localStorage.getItem(keys[i])}`;
+        get = JSON.parse(get);
+        if(get === null) {
+            return false;
+        }
+        if(get.length === undefined) {
+            return get.title === title;
+        } else {
+            for (let i = get.length - 1; i >= 0; i--) {
+                if(get[i].title === title) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+}
+
+export function deleteTask(title) {
+    const project = getProjectName(title);
     let get = localStorage.getItem(project);
     get = JSON.parse(get);
     if(get === null) {
-        return false;
+        return;
     }
     if(get.length === undefined) {
-        return get.title === title;
+        if(get.title === title) {
+            localStorage.removeItem(project);
+        }
+    } else if(get.length === 1) {
+        if(get[0].title === title) {
+            localStorage.removeItem(project);
+        }
     } else {
         const index = get.findIndex(obj => obj.title === `${title}`);
         if (index === -1) {
-            return false;
-        } else {
-            return true;
+            return;
         }
+        const updatedGet = [...get.slice(0, index), ...get.slice(index + 1)];
+        localStorage.setItem(project, JSON.stringify(updatedGet));
     }
+
+    resetScreen();
+    if(project === 'Inbox') {
+        displayInbox();
+    } else {
+        displayProjects(project);
+    }
+}
+
+export function deleteProject(title) {
+    localStorage.removeItem(title);
+    let get = localStorage.getItem('Projects');
+    get = JSON.parse(get);
+    const index = get.findIndex(obj => obj === `${title}`);
+    if (index === -1) {
+        return;
+    }
+    const updatedGet = [...get.slice(0, index), ...get.slice(index + 1)];
+    localStorage.setItem('Projects', JSON.stringify(updatedGet));
 }

@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import calendar from './images/calendar-blank-outline.svg';
 import edit from './images/pencil-outline.svg';
+import deleteImg from './images/delete-outline.svg';
 
 export function displayInbox() {
     let count = 1;
@@ -21,6 +22,10 @@ export function displayInbox() {
             editImg.src = edit;
             editImg.setAttribute('class', 'edit');
             card.appendChild(editImg);
+            const deleteImage = new Image();
+            deleteImage.src = deleteImg;
+            deleteImage.setAttribute('class', 'delete-img');
+            card.appendChild(deleteImage);
             const input = document.createElement('input');
             input.setAttribute('type', 'checkbox');
             input.classList.add('checkbox');
@@ -51,7 +56,7 @@ export function displayInbox() {
                 img.src = calendar;
                 dueDate.appendChild(img);
                 const div = document.createElement('div');
-                div.textContent = `${format(Date.parse(get.dueDate), 'dd MMM')}`;
+                div.textContent = `${format(Date.parse(get.dueDate), 'dd MMM yyyy')}`;
                 dueDate.appendChild(div);
                 card.appendChild(dueDate);
             }
@@ -67,6 +72,10 @@ export function displayInbox() {
                 editImg.src = edit;
                 editImg.setAttribute('class', 'edit');
                 card.appendChild(editImg);
+                const deleteImage = new Image();
+                deleteImage.src = deleteImg;
+                deleteImage.setAttribute('class', 'delete-img');
+                card.appendChild(deleteImage);
                 const input = document.createElement('input');
                 input.setAttribute('type', 'checkbox');
                 input.classList.add('checkbox');
@@ -97,7 +106,7 @@ export function displayInbox() {
                     img.src = calendar;
                     dueDate.appendChild(img);
                     const div = document.createElement('div');
-                    div.textContent = `${format(Date.parse(get[i].dueDate), 'dd MMM')}`;
+                    div.textContent = `${format(Date.parse(get[i].dueDate), 'dd MMM yyyy')}`;
                     dueDate.appendChild(div);
                     card.appendChild(dueDate);
                 }
@@ -128,6 +137,10 @@ export function displayToday() {
                 editImg.src = edit;
                 editImg.setAttribute('class', 'edit');
                 card.appendChild(editImg);
+                const deleteImage = new Image();
+                deleteImage.src = deleteImg;
+                deleteImage.setAttribute('class', 'delete-img');
+                card.appendChild(deleteImage);
                 const input = document.createElement('input');
                 input.setAttribute('type', 'checkbox');
                 input.classList.add('checkbox');
@@ -158,7 +171,7 @@ export function displayToday() {
                     img.src = calendar;
                     dueDate.appendChild(img);
                     const div = document.createElement('div');
-                    div.textContent = `${format(Date.parse(get.dueDate), 'dd MMM')}`;
+                    div.textContent = `${format(Date.parse(get.dueDate), 'dd MMM yyyy')}`;
                     dueDate.appendChild(div);
                     card.appendChild(dueDate);
                 }
@@ -176,6 +189,10 @@ export function displayToday() {
                     editImg.src = edit;
                     editImg.setAttribute('class', 'edit');
                     card.appendChild(editImg);
+                    const deleteImage = new Image();
+                    deleteImage.src = deleteImg;
+                    deleteImage.setAttribute('class', 'delete-img');
+                    card.appendChild(deleteImage);
                     const input = document.createElement('input');
                     input.setAttribute('type', 'checkbox');
                     input.classList.add('checkbox');
@@ -206,7 +223,7 @@ export function displayToday() {
                         img.src = calendar;
                         dueDate.appendChild(img);
                         const div = document.createElement('div');
-                        div.textContent = `${format(Date.parse(get[i].dueDate), 'dd MMM')}`;
+                        div.textContent = `${format(Date.parse(get[i].dueDate), 'dd MMM yyyy')}`;
                         dueDate.appendChild(div);
                         card.appendChild(dueDate);
                     }
@@ -240,6 +257,10 @@ export function displayUpcoming() {
                 editImg.src = edit;
                 editImg.setAttribute('class', 'edit');
                 card.appendChild(editImg);
+                const deleteImage = new Image();
+                deleteImage.src = deleteImg;
+                deleteImage.setAttribute('class', 'delete-img');
+                card.appendChild(deleteImage);
                 const input = document.createElement('input');
                 input.setAttribute('type', 'checkbox');
                 input.classList.add('checkbox');
@@ -270,7 +291,7 @@ export function displayUpcoming() {
                     img.src = calendar;
                     dueDate.appendChild(img);
                     const div = document.createElement('div');
-                    div.textContent = `${format(Date.parse(get.dueDate), 'dd MMM')}`;
+                    div.textContent = `${format(Date.parse(get.dueDate), 'dd MMM yyyy')}`;
                     dueDate.appendChild(div);
                     card.appendChild(dueDate);
                 }
@@ -289,6 +310,10 @@ export function displayUpcoming() {
                     editImg.src = edit;
                     editImg.setAttribute('class', 'edit');
                     card.appendChild(editImg);
+                    const deleteImage = new Image();
+                    deleteImage.src = deleteImg;
+                    deleteImage.setAttribute('class', 'delete-img');
+                    card.appendChild(deleteImage);
                     const input = document.createElement('input');
                     input.setAttribute('type', 'checkbox');
                     input.classList.add('checkbox');
@@ -319,7 +344,7 @@ export function displayUpcoming() {
                         img.src = calendar;
                         dueDate.appendChild(img);
                         const div = document.createElement('div');
-                        div.textContent = `${format(Date.parse(get[i].dueDate), 'dd MMM')}`;
+                        div.textContent = `${format(Date.parse(get[i].dueDate), 'dd MMM yyyy')}`;
                         dueDate.appendChild(div);
                         card.appendChild(dueDate);
                     }
@@ -348,6 +373,10 @@ export function displayProjects(project) {
         editImg.src = edit;
         editImg.setAttribute('class', 'edit');
         card.appendChild(editImg);
+        const deleteImage = new Image();
+        deleteImage.src = deleteImg;
+        deleteImage.setAttribute('class', 'delete-img');
+        card.appendChild(deleteImage);
         const input = document.createElement('input');
         input.setAttribute('type', 'checkbox');
         input.classList.add('checkbox');
@@ -378,7 +407,7 @@ export function displayProjects(project) {
             img.src = calendar;
             dueDate.appendChild(img);
             const div = document.createElement('div');
-            div.textContent = `${format(Date.parse(get.dueDate), 'dd MMM')}`;
+            div.textContent = `${format(Date.parse(get.dueDate), 'dd MMM yyyy')}`;
             dueDate.appendChild(div);
             card.appendChild(dueDate);
         }
@@ -395,6 +424,10 @@ export function displayProjects(project) {
                     editImg.src = edit;
                     editImg.setAttribute('class', 'edit');
                     card.appendChild(editImg);
+                    const deleteImage = new Image();
+                    deleteImage.src = deleteImg;
+                    deleteImage.setAttribute('class', 'delete-img');
+                    card.appendChild(deleteImage);
                     const input = document.createElement('input');
                     input.setAttribute('type', 'checkbox');
                     input.classList.add('checkbox');
@@ -425,7 +458,7 @@ export function displayProjects(project) {
                         img.src = calendar;
                         dueDate.appendChild(img);
                         const div = document.createElement('div');
-                        div.textContent = `${format(Date.parse(get[i].dueDate), 'dd MMM')}`;
+                        div.textContent = `${format(Date.parse(get[i].dueDate), 'dd MMM yyyy')}`;
                         dueDate.appendChild(div);
                         card.appendChild(dueDate);
                     }
