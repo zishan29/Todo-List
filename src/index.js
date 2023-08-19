@@ -1,4 +1,3 @@
-import './style.css';
 import check from './images/to-do-list.png'
 import sidebar from './sidebar';
 import { displayInbox } from './display';
