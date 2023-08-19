@@ -176,7 +176,6 @@ export function deleteProject(title) {
     localStorage.removeItem(title);
     let get = localStorage.getItem('Projects');
     get = JSON.parse(get);
-    get = [get];
     const index = get.findIndex(obj => obj === `${title}`);
     if (index === -1) {
         return;
