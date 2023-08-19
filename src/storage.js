@@ -43,7 +43,6 @@ export function editStorage($title, $project, title, description, dueDate, prior
             } else {
                 const updatedObj = { ...get, title: `${title}`, description: `${description}`,
                                     dueDate: `${dueDate}`, priority: `${priority}`, project: `${project}`};
-                console.log('if if else');
                 if(get2.length === undefined) {
                     get2 = [get2];
                 }
@@ -66,7 +65,6 @@ export function editStorage($title, $project, title, description, dueDate, prior
                 const updatedObj = {...get[index], title: `${title}`, description: `${description}`,
                                 dueDate: `${dueDate}`, priority: `${priority}`, project: `${project}`};
                 const updatedGet2 = [updatedObj];
-                console.log('else if null');
                 const updatedGet = [...get.slice(0, index), ...get.slice(index + 1)];
                 localStorage.setItem(project, JSON.stringify(updatedGet2));
                 localStorage.setItem($project, JSON.stringify(updatedGet));
@@ -77,7 +75,6 @@ export function editStorage($title, $project, title, description, dueDate, prior
                     get2 = [get2];
                 }
                 const updatedGet2 = [...get2.slice(0), updatedObj];
-                console.log('else if else !null')
                 const updatedGet = [...get.slice(0, index), ...get.slice(index + 1)];
                 localStorage.setItem(project, JSON.stringify(updatedGet2));
                 localStorage.setItem($project, JSON.stringify(updatedGet));
