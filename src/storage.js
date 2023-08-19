@@ -17,8 +17,7 @@ export function addTaskToStorage(task, project) {
 export function addProjectToStorage(title) {
     let arr = [];
     if(localStorage.getItem('Projects') === null) {
-        arr = [title];
-        localStorage.setItem('Projects', JSON.stringify(arr));
+        localStorage.setItem('Projects', JSON.stringify(title));
         arr = arr.concat(JSON.parse(localStorage.getItem('Projects')));
     } else {
         arr = arr.concat(JSON.parse(localStorage.getItem('Projects')));
@@ -177,6 +176,9 @@ export function deleteProject(title) {
     localStorage.removeItem(title);
     let get = localStorage.getItem('Projects');
     get = JSON.parse(get);
+    if(!(get instanceof Object)) {
+        get = [get];
+    }
     const index = get.findIndex(obj => obj === `${title}`);
     if (index === -1) {
         return;
