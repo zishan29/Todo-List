@@ -1,0 +1,609 @@
+:root {
+    background-color: #202020;
+    font-family: 'Roboto';
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+#sidebar {
+    padding: 20px;
+    padding-top: 60px;
+    background-color: #242424;
+    min-width: 265px;
+    height: 100%;
+    color: white;
+    display: grid;
+    grid-template-rows: 25px 25px 25px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    align-items: center;
+    gap: 8px;
+    opacity: 1;
+}
+
+#content {
+    display: grid;
+    grid-template-columns: 305px 1fr;
+    height: 100vh;
+}
+
+#main-container {
+    margin-top: 20px;
+    grid-column: 2 / -1;
+    justify-self: center;
+    width: 50%;
+    display: grid;
+    grid-template-rows: 50px;
+    grid-auto-rows: max-content;
+    gap: 10px;
+}
+
+#task-list {
+    grid-row: 2 / 3;
+    grid-column: 2 / -1;
+    justify-self: center;
+    width: 200%;
+    display: grid;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: max-content;
+}
+
+#task-list > div {
+    width: 50%;
+    justify-self: center;
+    height: max-content;
+    margin: 10px 0;
+}
+
+#task-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+#task-list::-webkit-scrollbar-thumb {
+    background-color: grey;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 3px;  
+}
+
+.card {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    border-bottom: 1px solid #373737;
+    align-items: center;
+    grid-auto-rows: max-content;
+    max-height: max-content;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.due-date > img {
+    height: 16px;
+}
+
+.due-date {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.checkbox {
+    grid-column: 1 / 2;
+    height: 20px;
+}
+
+.card > div {
+    grid-column: 2 / -1;
+    color: #9d9d9d;
+    margin: 2px 0;
+}
+
+.description {
+    font-size: 14px;
+}
+
+.card > input + div {
+    color: #eeeeee;
+}
+
+.card > .edit {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    height: 20px;
+    visibility: hidden;
+}
+
+.card > .delete-img {
+    position: absolute;;
+    top: 0;
+    right: 0;
+    height: 20px;
+    visibility: hidden;
+}
+
+#add-task {
+    display: flex;
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    grid-row: 3 / 4;
+    grid-column: 1 / -1;
+    height: 40px;
+}
+
+#add-task > #plus{
+    border-radius: 50%;
+    width: 20px;
+    border: none;
+    background-color: transparent;
+    color:rgb(235, 77, 77);
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+#add-task > #task {
+    color: #808080;
+    font-size: 16px;
+}
+
+form {
+    visibility: hidden;
+    border: 1px solid #555555;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 25px 30px 50px;
+    padding: 8px;
+    border-radius: 8px;
+    grid-row: 3 / 4;
+    grid-column: 1 / -1;
+    align-self: center;
+}
+
+#container1 {
+    grid-column: 1 / 3;
+    display: grid;
+    grid-template-columns: 78px 84px 70px;
+    gap: 8px;
+    grid-auto-flow: column;
+}
+
+#container2 {
+    grid-column: -2 / -1;
+    display: grid;
+    grid-template-columns: 80px 80px;
+    justify-self: end;
+    gap: 5px;
+}
+
+#select-projects, #edit-select-projects {
+    grid-column: 3 / 4;
+}
+
+input {
+    background-color: transparent;
+    border: none;
+}
+
+#task-name::placeholder, #edit-task-name::placeholder {
+    font-weight: bold;
+    font-size: 15px;
+    color: #797979;
+}
+
+#task-name, #edit-task-name {
+    line-height: 20px;
+    color: white;
+    font-size: 15px;
+}
+
+#description, #edit-description {
+    color: white;
+}
+
+select {
+    background-color: transparent;
+    border: 1px solid #555555;
+    color: #979797;
+    justify-self: center;
+    grid-column: 2 / 3;
+    border-radius: 4px;
+    align-self: center;
+    justify-self: start;
+    padding: 5px 5px;
+    outline: none;
+    appearance: none;
+}
+
+#datePicker, #edit-datePicker {
+    border: 1px solid #555555;
+    color: #979797;
+    grid-column: 1 / 2;
+    border-radius: 4px;
+    align-self: center;
+    padding: 5px 5px;
+    width: 85%;
+}
+
+#task-name, #description, #edit-task-name, #edit-description {
+    grid-column: 1 / 5;
+}
+
+#description, #edit-description {
+    grid-row: 2 / 3;
+}
+
+form > div > button {
+    background-color: #292929;
+    border: none;
+    color: white;
+    width: 95%;
+    height: 60%;
+    justify-self: end;
+    align-self: center;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+form > div > #addTaskButton, #edit-add {
+    background-color: #de4c4a;
+}
+
+#header{
+    color: white;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+
+#inbox, #today, #upcoming {
+    display: grid;
+    grid-template-columns: 0.4fr 5fr;
+    gap: 8px;
+    align-items: center;
+    padding: 8px;
+}
+
+#sidebar > div > img {
+    height: 110%;
+    width: auto;
+}
+
+#sidebar > div > div {
+    font-size: 13.9px;
+}
+
+#projects {
+    display: grid;
+    align-self: flex-start;
+    padding-left: 8px;
+    margin-top: 20px;
+    color: #9e9e9e;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    grid-template-rows: 40px;
+    align-items: center;
+}
+
+#project-container {
+    display: grid;
+    grid-auto-rows: max-content;
+}
+
+#inbox:hover, #today:hover, #upcoming:hover {
+    background-color: #363636;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+
+input:focus {
+    outline: none;
+}
+
+
+#ui-datepicker-div {
+	display: none;
+	background-color: #fff;
+	box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.1);
+	margin-top: 0.25rem;
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.ui-datepicker-calendar thead th {
+	padding: 0.25rem 0;
+	text-align: center;
+	font-size: 0.75rem;
+	font-weight: 400;
+	color: #78909C;
+}
+
+.ui-datepicker-calendar tbody td {
+	width: 2.5rem;
+	text-align: center;
+	padding: 0;
+}
+
+.ui-datepicker-calendar tbody td a {
+	display: block;
+	border-radius: 0.25rem;
+	line-height: 2rem;
+	transition: 0.3s all;
+	color: #546E7A;
+	font-size: 0.875rem;
+	text-decoration: none;
+}
+
+.ui-datepicker-calendar tbody td a:hover {	
+	background-color: #E0F2F1;
+}
+
+.ui-datepicker-calendar tbody td a.ui-state-active {
+	background-color: #009688;
+	color: white;
+}
+
+.ui-datepicker-header a.ui-corner-all {
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	width: 2rem;
+	height: 2rem;
+	margin: 0.5rem;
+	border-radius: 0.25rem;
+	transition: 0.3s all;
+}
+
+.ui-datepicker-header a.ui-corner-all:hover {
+	background-color: #ECEFF1;
+}
+
+.ui-datepicker-header a.ui-datepicker-prev {	
+	left: 0;	
+	background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMyIgaGVpZ2h0PSIxMyIgdmlld0JveD0iMCAwIDEzIDEzIj48cGF0aCBmaWxsPSIjNDI0NzcwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03LjI4OCA2LjI5NkwzLjIwMiAyLjIxYS43MS43MSAwIDAgMSAuMDA3LS45OTljLjI4LS4yOC43MjUtLjI4Ljk5OS0uMDA3TDguODAzIDUuOGEuNjk1LjY5NSAwIDAgMSAuMjAyLjQ5Ni42OTUuNjk1IDAgMCAxLS4yMDIuNDk3bC00LjU5NSA0LjU5NWEuNzA0LjcwNCAwIDAgMS0xLS4wMDcuNzEuNzEgMCAwIDEtLjAwNi0uOTk5bDQuMDg2LTQuMDg2eiIvPjwvc3ZnPg==");
+	background-repeat: no-repeat;
+	background-size: 0.5rem;
+	background-position: 50%;
+	transform: rotate(180deg);
+}
+
+.ui-datepicker-header a.ui-datepicker-next {
+	right: 0;
+	background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMyIgaGVpZ2h0PSIxMyIgdmlld0JveD0iMCAwIDEzIDEzIj48cGF0aCBmaWxsPSIjNDI0NzcwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03LjI4OCA2LjI5NkwzLjIwMiAyLjIxYS43MS43MSAwIDAgMSAuMDA3LS45OTljLjI4LS4yOC43MjUtLjI4Ljk5OS0uMDA3TDguODAzIDUuOGEuNjk1LjY5NSAwIDAgMSAuMjAyLjQ5Ni42OTUuNjk1IDAgMCAxLS4yMDIuNDk3bC00LjU5NSA0LjU5NWEuNzA0LjcwNCAwIDAgMS0xLS4wMDcuNzEuNzEgMCAwIDEtLjAwNi0uOTk5bDQuMDg2LTQuMDg2eiIvPjwvc3ZnPg==');
+	background-repeat: no-repeat;
+	background-size: 10px;
+	background-position: 50%;
+}
+
+.ui-datepicker-header a>span {
+	display: none;
+}
+
+.ui-datepicker-title {
+	text-align: center;
+	line-height: 2rem;
+	margin-bottom: 0.25rem;
+	font-size: 0.875rem;
+	font-weight: 500;
+	padding-bottom: 0.25rem;
+}
+
+.ui-datepicker-week-col {
+	color: #78909C;
+	font-weight: 400;
+	font-size: 0.75rem;
+}
+
+#projects > #title {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+#plus-img {
+    height: 20px;
+    width: auto;
+    margin-left: auto;
+    padding: 5px;
+    visibility: hidden;
+}
+
+#plus-img:hover {
+    border: none;
+    border-radius: 5px;
+    background-color: #202020;
+}
+
+#project-form {
+    position: fixed;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 30px 35px 30px 55px;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    width: 300px;
+    height: 140px;
+    background-color: #202020;
+}
+
+#project-form > input {
+    border: 1px solid #333333;
+    border-radius: 4px;
+    padding-left: 5px;
+}
+
+#project-form > input, #project-form > label, #project-form > #title {
+    grid-column: 1 / -1;
+    color: white;
+}
+
+#project-form > #title {
+    font-size: 18px;    
+    font-weight: bold;
+    border-bottom: 1px solid #282828;
+}
+
+#project-form > label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+#project-form > button {
+    height: 60%;
+    align-self: center;
+    background-color: #292929;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+    width: 95%;
+    justify-self: center;
+}
+
+#project-form > button + button {
+    background-color: #de4c4a;
+}
+
+.projects {
+    color: #f4f4f4;
+    font-weight: normal;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    height: 25px;
+}
+
+.delete-project {
+    height: 20px;
+    margin-left: auto;
+    border-radius: 3px;
+    padding: 2px;
+}
+
+.delete-project:hover {
+    background-color: #1e1e1e;
+    padding: 2px;
+}
+
+.projects:hover {
+    background-color: #363636;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+input[type=checkbox] {
+    position: relative;
+    cursor: pointer;
+    appearance: none;
+}
+  
+input[type=checkbox]:before {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    padding: 1px;
+    background-color: #202020;
+}
+  
+input[type=checkbox]:checked:before {
+    background-color: #202020;
+}
+  
+input[type=checkbox]:checked:after {
+    content: "";
+    display: block;
+    width: 3px;
+    height: 6px;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 4px;
+    left: 6px;
+}
+
+.priority1:before {
+    border: 1px solid #ff7066;
+}
+
+.priority1:checked:after {
+    border: solid #ff7066;
+}
+
+.priority2:before {
+    border: 1px solid #ff9a14;
+}
+
+.priority2:checked:after {
+    border: solid #ff9a14;
+}
+
+.priority3:before {
+    border: 1px solid #5297ff;
+}
+
+.priority3:checked:after {
+    border: solid #5297ff;
+}
+
+.priority4:before {
+    border: 1px solid #808080
+}
+
+.priority4:checked:after {
+    border: solid #808080;
+}
+
+option {
+    /* appearance: none; */
+    background-color: #202020;
+    border: none;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+#edit-form {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #202020;
+}
